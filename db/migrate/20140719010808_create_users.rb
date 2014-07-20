@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :twitter
       t.string :facebook
       t.string :patreon
-      t.references :project, index: true
 
       t.timestamps
     end
