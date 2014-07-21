@@ -5,8 +5,7 @@ gem 'rails', '4.0.4'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+gem "searchkick"
 
 gem 'figaro'
 gem 'httparty'
