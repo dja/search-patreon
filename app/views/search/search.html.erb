@@ -5,3 +5,28 @@
   </p>
 <%# end %>
 
+
+
+
+<%= form_tag search_path, class: "form-inline", method: :get do %>
+<div class="input-group input-group-lg" >
+  <% if params[:query].present? %>
+  <div class="input-group-btn">
+    <%= link_to "clear", search_path, class: "btn btn-default" %>
+ </div>
+	<% end %>
+ <%= text_field_tag :query, params[:query], class: "form-control", id: "search_search", autocomplete: "off" %>
+ 	<% if @users.present? %>
+ 	<% @users.each do |u| %>
+		<%= u.name %>
+		<%= u.twitter %>
+		<%= u.facebook %>
+		<%= u.youtube %>
+		<%= u.patreon %>
+	<% end %>
+	<% end %>
+ <div class="input-group-btn">
+   <%= submit_tag "Search", class: "btn btn-primary" %>
+ </div>
+</div>
+<% end %>

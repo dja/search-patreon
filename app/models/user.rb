@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
-	searchkick
+	searchkick autocomplete: ['patreon']
 	has_many :projects
 end

@@ -3,9 +3,15 @@ Patreon::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  
+  resources :search, only: :search do
+    collection do
+      post :import
+      get :autocomplete # <= add this line
+    end
+  end
   root 'search#search'
 
+  get 'search' => 'search#search', as: 'search'
   get 'sync' => 'projects#syncPatreon'
   get 'sync-users' => 'users#syncUsers'
   get 'download-users' => 'users#downloadUsers'
