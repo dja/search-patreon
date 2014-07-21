@@ -8,6 +8,7 @@ Patreon::Application.routes.draw do
 
   get 'sync' => 'projects#syncPatreon'
   get 'sync-users' => 'users#syncUsers'
+  get 'add-users' => 'users#addCrawlUrlsToKimono'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
