@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def syncPatreon
-		1..2.times do |i|
+		1..300.times do |i|
 			newData = []
 			newData = HTTParty.get('https://www.kimonolabs.com/api/alkpwwa0?apikey=s04YPYzlvOCmvEbB03dRSBCWBtUQoY02&p='+i.to_s)
 			next if newData.response.code != "200"
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
 					project.user = u
 				end
 			end
-		rescue if newData["results"]["projects"].count == 0
+			break if newData["results"]["projects"].count == 0
 		end
 	end
 end

@@ -36,11 +36,8 @@ ActiveRecord::Schema.define(version: 20140720193818) do
     t.string   "twitter"
     t.string   "facebook"
     t.string   "patreon"
-    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "users", ["project_id"], name: "index_users_on_project_id", using: :btree
 
 end

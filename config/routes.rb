@@ -7,6 +7,7 @@ Patreon::Application.routes.draw do
   root 'search#search'
 
   get 'sync' => 'projects#syncPatreon'
+  get 'sync-users' => 'users#syncUsers'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
