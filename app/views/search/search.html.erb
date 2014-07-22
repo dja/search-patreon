@@ -1,9 +1,10 @@
 <div class="container">
 
 	<div class="col-md-8">
+		<h1>Go ahead, search Patreon</h1>
 		<%= form_tag search_path, class: "form-inline", method: :get do %>
 		<div class="input-group" >
-			<%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search Patreon' %>
+			<%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search' %>
 			<span class="input-group-btn">
 			<%= button_tag :submit, class: "btn btn-primary" do %>
 				<span class="glyphicon glyphicon-search"></span>
@@ -25,7 +26,7 @@
 		<% end %>
 	</div>
 	<div class="col-md-4">
-		<h3>Top Patreon Users</h3>
+		<h3>Top Patreon Creators</h3>
 		<% @top_users.each do |u| %>
 			<div class="top-user">
 				<h5><%= u.name %></h5>

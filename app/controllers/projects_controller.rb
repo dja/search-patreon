@@ -31,22 +31,22 @@ class ProjectsController < ApplicationController
 		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8iz9vpyk/update', body: { apikey: ENV['KIMONO_API_KEY'], urls: ['http://www.patreon.com/discoverNext&p='+page] })
 	end
 
-	def addProjectCrawlUrlsToKimono(urls)
-		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8iz9vpyk/update', body: { apikey: ENV['KIMONO_API_KEY'], urls: urls })
-	end
-
-	def startProjectsCrawl
-		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8iz9vpyk/startcrawl', body: { apikey: ENV['KIMONO_API_KEY'] })
-	end
-
+	# Step 1
 	def addCrawlUrlsToKimono
 		urls = []
 		1...300.times do |i|
 			urls << 'http://www.patreon.com/discoverNext?p='+i.to_s+'&ty=&srt=2'
 		end
 		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8l5fbuh8/update', body: { apikey: ENV['KIMONO_API_KEY'], urls: urls })
+		startCrawl if response.response.code == "200"
 	end
 
+	# Part of Step 1
+	def startCrawl
+		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8l5fbuh8/startcrawl', body: { apikey: ENV['KIMONO_API_KEY'] })
+	end
+
+	# Step 2
 	def getPatreonIds
 		data = HTTParty.get('https://www.kimonolabs.com/api/8l5fbuh8?apikey='+ENV['KIMONO_API_KEY'])
 		return if data.response.code != "200"
@@ -57,7 +57,14 @@ class ProjectsController < ApplicationController
 		addProjectCrawlUrlsToKimono(urls)
 	end
 
-	def startCrawl
-		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8l5fbuh8/startcrawl', body: { apikey: ENV['KIMONO_API_KEY'] })
+	# Part of Step 2
+	def addProjectCrawlUrlsToKimono(urls)
+		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8iz9vpyk/update', body: { apikey: ENV['KIMONO_API_KEY'], urls: urls })
+		startProjectsCrawl if response.response.code == "200"
+	end
+
+	# Part of Step 2
+	def startProjectsCrawl
+		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8iz9vpyk/startcrawl', body: { apikey: ENV['KIMONO_API_KEY'] })
 	end
 end

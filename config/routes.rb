@@ -22,8 +22,10 @@ Patreon::Application.routes.draw do
   get 'sync-users' => 'users#syncUsers'
   get 'download-users' => 'users#downloadUsers'
   get 'add-users' => 'users#addCrawlUrlsToKimono'
-  get 'add-projects' => 'projects#addCrawlUrlsToKimono'
-  get 'add-projectids' => 'projects#getPatreonIds'
+  get 'add-projects' => 'projects#addCrawlUrlsToKimono', as: 'step_one'
+  get 'start-crawl' => 'projects#startCrawl'
+  get 'add-projectids' => 'projects#getPatreonIds', as: 'step_two'
+  get 'start-projects-crawl' => 'projects#startProjectsCrawl'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
