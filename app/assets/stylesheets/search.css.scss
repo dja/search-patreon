@@ -24,16 +24,36 @@ body {
 .top-user {
 	background-color: #f6f6f6;
 	padding: 0.5rem 1rem;
-	margin: 0.5rem 0;
+	margin: 1.5rem 0;
 	border-radius: 0.25rem;
+  
+  h5 {
+    color: darken(#f6f6f6, 25%);
+    font-size:3rem;
+    margin-left: -1.5rem;
+    margin-top: -1.5rem;
+  }
 
 	p {
 		padding: 0 1rem;
 	}
 	i {
 		font-size: 2rem;
-		padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    background-color: white;
+    border-radius: 0.25rem;
 	}
+  .follower-counts {
+    padding: 1rem 0;
+
+    i {
+      background-color: transparent;
+      border-radius: 0;
+      padding: 0.5rem;
+      margin: 0.25rem;
+    }
+  }
 }
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
