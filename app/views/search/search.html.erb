@@ -1,28 +1,42 @@
 <div class="container">
 
-	<%= form_tag search_path, class: "form-inline", method: :get do %>
-	<div class="input-group" >
-	 <%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search Patreon' %>
-	 <span class="input-group-btn">
-	   <%= button_tag :submit, class: "btn btn-primary" do %>
-	   	<span class="glyphicon glyphicon-search"></span>
-	   <% end %>
-     </span>
-	</div>
-	  <% if params[:query].present? %>
-		<h3>patreon.com/<%= @user.patreon %></h3>
-		<h5><%= @user.name %></h5>
-		<p>There are <%= @user.patrons %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
-	  <div class="input-group-btn">
-	    <%= link_to "Search Again", search_path, class: "btn btn-default" %>
-	 </div>
+	<div class="col-md-8">
+		<%= form_tag search_path, class: "form-inline", method: :get do %>
+		<div class="input-group" >
+			<%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search Patreon' %>
+			<span class="input-group-btn">
+			<%= button_tag :submit, class: "btn btn-primary" do %>
+				<span class="glyphicon glyphicon-search"></span>
+			<% end %>
+			</span>
+		</div>
 		<% end %>
-	<% end %>
-
-	<h3>Top Patreon Users</h3>
-	<% @top_users.each do |u| %>
-		<h5><%= u.name %></h5>
-		<p>There are <%= u.patrons %> patrons contributing <%= number_to_currency(u.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{u.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{u.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
-	<% end %>
+		<% if params[:query].present? %>
+			<div class="patreon-user col-md-6">
+			<h3>patreon.com/<%= @user.patreon %></h3>
+			<h5><%= @user.name %></h5>
+			<p>There are <%= @user.patrons %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
+			<% if @user.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= @user.youtube_count %></a><br/><% end %>
+			<% if @user.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= @user.facebook_count %></a><% end %>
+		  	<div class="input-group-btn">
+		   		<%= link_to "Search Again", search_path, class: "btn btn-default" %>
+		 	</div>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-md-4">
+		<h3>Top Patreon Users</h3>
+		<% @top_users.each do |u| %>
+			<div class="top-user">
+				<h5><%= u.name %></h5>
+				<p><%= u.patrons %> Patrons contributing <%= number_to_currency(u.monthly_pledge) %>/month.</p>
+				<i><%= link_to "", "http://patreon.com/#{u.patreon}", class: 'ion-happy', target: '_blank' %></i>
+				<i><%= link_to "", "http://facebook.com/#{u.facebook}", class: 'ion-social-facebook', target: '_blank' %></i>
+				<i><%= link_to "", "http://twitter.com/#{u.twitter}", class: 'ion-social-twitter', target: '_blank' %></i><br/>
+				<% if u.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= link_to u.youtube_count, "http://youtube.com/#{u.youtube}" %></a><% end %>
+				<% if u.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= link_to u.facebook_count, "http://facebook.com/#{u.facebook}" %></a><% end %>
+			</div>
+		<% end %>
+	</div>
 
 </div>
