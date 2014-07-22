@@ -9,6 +9,12 @@ Patreon::Application.routes.draw do
       get :autocomplete # <= add this line
     end
   end
+
+  scope '/hooks', controller: :hooks do
+    post :new_user_info_callback
+    post :new_project_callback
+  end
+
   root 'search#search'
 
   get 'search' => 'search#search', as: 'search'
