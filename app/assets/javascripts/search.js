@@ -26,8 +26,7 @@ $(document).ready(function(){
 			      '<div class="empty-message">',
 			      'No Patreon users found.',
 			      '</div>'
-			    ].join('\n'),
-			    suggestion: Handlebars.compile('<p><strong>{{name}}</strong> – {{patreon}}</p>')
+			    ].join('\n')
 			  }
 	          });
 });
