@@ -18,10 +18,9 @@ Patreon::Application.routes.draw do
   root 'search#search'
 
   get 'search' => 'search#search', as: 'search'
-  get 'sync' => 'projects#syncPatreon'
-  get 'sync-users' => 'users#syncUsers'
-  get 'download-users' => 'users#downloadUsers'
-  get 'add-users' => 'users#addCrawlUrlsToKimono'
+  get 'sync' => 'projects#syncPatreon', as: 'get_projects'
+  get 'sync-users' => 'users#syncUsers', as: 'get_users'
+  get 'add-users' => 'users#addUsersCrawlUrlsToKimono', as: 'step_three'
   get 'add-projects' => 'projects#addCrawlUrlsToKimono', as: 'step_one'
   get 'start-crawl' => 'projects#startCrawl'
   get 'add-projectids' => 'projects#getPatreonIds', as: 'step_two'

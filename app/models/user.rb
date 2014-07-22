@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 				  self.facebook = facebook.downcase unless facebook.nil?
 				  self.youtube  = youtube.downcase unless youtube.nil?
 				  self.patreon  = patreon.downcase unless patreon.nil? }
+
 end

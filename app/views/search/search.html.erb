@@ -2,27 +2,41 @@
 
 	<div class="col-md-8">
 		<h1>Go ahead, search Patreon</h1>
-		<%= form_tag search_path, class: "form-inline", method: :get do %>
-		<div class="input-group" >
-			<%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search' %>
-			<span class="input-group-btn">
-			<%= button_tag :submit, class: "btn btn-primary" do %>
-				<span class="glyphicon glyphicon-search"></span>
+
+		<div class="row">
+		  <div class="col-lg-6">
+		  	<%= form_tag search_path, class: "form-inline", method: :get do %>
+		    <div class="input-group">
+				<%= text_field_tag :query, params[:query], class: "typeahead form-control input-lg", id: "search_search", autocomplete: "off", placeholder: 'Search' %>
+		      <span class="input-group-btn">
+				<%= button_tag :submit, class: "btn btn-primary btn-lg", style: 'margin-top: -3px;' do %>
+					<span class="glyphicon glyphicon-search"></span>
+				<% end %>
+		      </span>
+		    </div><!-- /input-group -->
 			<% end %>
-			</span>
-		</div>
-		<% end %>
+		  </div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+
 		<% if params[:query].present? %>
+		<div class="row">
 			<div class="patreon-user col-md-6">
-			<h3>patreon.com/<%= @user.patreon %></h3>
-			<h5><%= @user.name %></h5>
-			<p>There are <%= @user.patrons %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
-			<% if @user.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= @user.youtube_count %></a><br/><% end %>
-			<% if @user.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= @user.facebook_count %></a><% end %>
-		  	<div class="input-group-btn">
+				<h3>patreon.com/<%= @user.patreon %></h3>
+				<h5><%= @user.name %></h5>
+				<p>There are <%= @user.patrons.to_i > 0 ? @user.patrons : "no" %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> this month.<br /><br />
+				<h5><%= @user.patreon %> on</h5><br/>
+				<i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i> <i><%= link_to "", "http://twitter.com/#{@user.twitter}", class: 'ion-social-twitter', target: '_blank' %></i> <i><%= link_to "", "http://youtube.com/#{@user.youtube}", class: 'ion-social-youtube', target: '_blank' %></i></p><br />
+				<h5>Followers:</h5>
+				<% if @user.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= link_to number_with_delimiter(@user.facebook_count, :delimiter => ','), "http://facebook.com/#{@user.facebook}", target: '_blank' %></a><% end %>
+				<% if @user.twitter_count != nil %><i class="ion-social-twitter"></i><a><%= link_to number_with_delimiter(@user.twitter_count, :delimiter => ','), "http://twitter.com/#{@user.twitter}", target: '_blank' %></a><% end %>
+				<% if @user.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= link_to number_with_delimiter(@user.youtube_count, :delimiter => ','), "http://youtube.com/#{@user.youtube}", target: '_blank' %></a><br/><% end %>
+			</div>
+		</div>
+		<div class="row well" style="margin-top: 10rem;">
+		  	<div class="input-group col-md-6">
 		   		<%= link_to "Search Again", search_path, class: "btn btn-default" %>
 		 	</div>
-			</div>
+	 	</div>
 		<% end %>
 	</div>
 	<div class="col-md-4">
@@ -30,12 +44,14 @@
 		<% @top_users.each do |u| %>
 			<div class="top-user">
 				<h5><%= u.name %></h5>
-				<p><%= u.patrons %> Patrons contributing <%= number_to_currency(u.monthly_pledge) %>/month.</p>
+				<p><%= u.patrons %> Patrons contributing <%= number_to_currency(u.monthly_pledge, precision: 0) %>/month.</p>
 				<i><%= link_to "", "http://patreon.com/#{u.patreon}", class: 'ion-happy', target: '_blank' %></i>
 				<i><%= link_to "", "http://facebook.com/#{u.facebook}", class: 'ion-social-facebook', target: '_blank' %></i>
-				<i><%= link_to "", "http://twitter.com/#{u.twitter}", class: 'ion-social-twitter', target: '_blank' %></i><br/>
-				<% if u.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= link_to u.youtube_count, "http://youtube.com/#{u.youtube}" %></a><% end %>
-				<% if u.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= link_to u.facebook_count, "http://facebook.com/#{u.facebook}" %></a><% end %>
+				<i><%= link_to "", "http://twitter.com/#{u.twitter}", class: 'ion-social-twitter', target: '_blank' %></i>
+				<i><%= link_to "", "http://youtube.com/#{u.youtube}", class: 'ion-social-youtube', target: '_blank' %></i><br/>
+				<% if u.twitter_count != nil %><i class="ion-social-twitter"></i><a><%= link_to number_with_delimiter(u.twitter_count, :delimiter => ','), "http://twitter.com/#{u.twitter}" %></a><% end %>
+				<% if u.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= link_to number_with_delimiter(u.facebook_count, :delimiter => ','), "http://facebook.com/#{u.facebook}" %></a><% end %>
+				<% if u.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= link_to number_with_delimiter(u.youtube_count, :delimiter => ','), "http://youtube.com/#{u.youtube}" %></a><% end %>
 			</div>
 		<% end %>
 	</div>

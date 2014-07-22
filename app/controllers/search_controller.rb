@@ -6,11 +6,11 @@ class SearchController < ApplicationController
 
 	def search
 		if params[:query].present? && params[:query] != "*"
-		  @user = User.search(params[:query]).first
+		  @user = User.search(params[:query].match(/user.u=\w+\s*$|\w+\s*$/).to_s).first
 		else
 		  ""
 		end
-		@top_users = User.where("monthly_pledge IS NOT NULL").order(monthly_pledge: :desc, patrons: :asc).limit(10)
+		@top_users = User.where("monthly_pledge IS NOT NULL").order(monthly_pledge: :desc, patrons: :asc).limit(5)
 	end
 
 	def autocomplete

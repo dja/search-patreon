@@ -6,10 +6,18 @@ body {
     padding: 50px;
 }
 
+.alert {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
 .patreon-user {
 	i {
 		font-size: 3rem;
 		padding: 0.5rem 1rem;
+	}
+	a {
+		font-size: 3rem;
 	}
 }
 
@@ -77,11 +85,11 @@ body {
   margin: 0;
 }
 
-.twitter-typeahead .tt-hint {
+.input-group .twitter-typeahead .tt-hint {
     display: block;
-    height: 34px;
-    padding: 5px 12px;
-    font-size: 14px;
-    line-height: 1.428571429;
+    height: 46px !important;
+	padding: 10px 16px !important;
+	font-size: 18px !important;
+	line-height: 1.33 !important;
     border: 1px solid transparent;
 }

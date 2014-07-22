@@ -12,19 +12,22 @@ class ProjectsController < ApplicationController
 		data = HTTParty.get('https://www.kimonolabs.com/api/8iz9vpyk?apikey='+ENV['KIMONO_API_KEY'])
 		return if data.response.code != "200"
 		data["results"]["projects"].each do |e|
-			next if e["name"].nil? || e["name"]["href"].nil?
-			username = e["creator"]["href"].split(e["creator"]["href"].match(/http:..www.patreon.com./).to_s)[1]
+			next if e["name"].nil? || e["link"].nil?
+			username = e["creator"]["href"].match(/user.u=\w+\s*$|\w+\s*$/).to_s.downcase
 			u = User.find_or_create_by(patreon: username) do |user|
 				user.name = e["creator"]["text"]
 			end
-			Project.find_or_create_by(url: e["name"]["href"].gsub!(/\D/, "")) do |project|
-				project.site = "Patreon"
-				project.name = e["name"]["text"]
-				project.created_date = e["date"]
-				project.patrons = e["patrons"]
-				project.user = u
+			# raise e.inspect
+			projectid = e["link"].match(/\w+\s*$/).to_s
+			Project.find_or_create_by(url: projectid) do |project|
+				project.site 		  = "Patreon"
+				project.name 		  = e["name"]
+				project.created_date  = e["publish-date"]
+				project.patrons 	||= e["patrons"]
+				project.user 	 	  = u
 			end
 		end
+		redirect_to root_url
 	end
 
 	def addNewProjectCrawlUrlToKimono(page)
@@ -39,6 +42,7 @@ class ProjectsController < ApplicationController
 		end
 		response = HTTParty.post('https://www.kimonolabs.com/kimonoapis/8l5fbuh8/update', body: { apikey: ENV['KIMONO_API_KEY'], urls: urls })
 		startCrawl if response.response.code == "200"
+		redirect_to root_url
 	end
 
 	# Part of Step 1
@@ -55,6 +59,8 @@ class ProjectsController < ApplicationController
 			urls << l["link"]
 		end
 		addProjectCrawlUrlsToKimono(urls)
+		flash[:alert] = "This can take some time to update online. Check back in a few hours and choose 'Get All Projects'"
+		redirect_to root_url
 	end
 
 	# Part of Step 2
