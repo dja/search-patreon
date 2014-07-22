@@ -23,7 +23,7 @@
 			<div class="patreon-user col-md-6">
 				<h3>patreon.com/<%= @user.patreon %></h3>
 				<h5><%= @user.name %></h5>
-				<p>There are <%= @user.patrons.to_i > 0 ? number_with_delimiter(@user.patrons, :delimiter => ',') : "no" %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> this month.<br /><br />
+				<p>There are <%= @user.patrons.to_i > 0 ? number_with_delimiter(@user.patrons, :delimiter => ',') : "no" %> patrons contributing <%= number_to_currency(@user.monthly_pledge, precision: 0) %> this month.<br /><br />
 				<h5><%= @user.patreon %> on</h5><br/>
 				<i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i> <i><%= link_to "", "http://twitter.com/#{@user.twitter}", class: 'ion-social-twitter', target: '_blank' %></i> <i><%= link_to "", "http://youtube.com/#{@user.youtube}", class: 'ion-social-youtube', target: '_blank' %></i></p><br />
 				<h5>Followers:</h5>
