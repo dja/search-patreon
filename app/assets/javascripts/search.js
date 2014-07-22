@@ -20,13 +20,6 @@ $(document).ready(function(){
 	          displayKey: function (engine) {
 	              return engine.patreon;
 	          },
-	          "source": engine.ttAdapter(),
-			  templates: {
-			    empty: [
-			      '<div class="empty-message">',
-			      'No Patreon users found.',
-			      '</div>'
-			    ].join('\n')
-			  }
+	          "source": engine.ttAdapter()
 	          });
 });
