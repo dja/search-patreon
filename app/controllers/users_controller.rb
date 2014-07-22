@@ -5,11 +5,13 @@ class UsersController < ApplicationController
 		return if newData.response.code != "200" || newData.parsed_response["count"] == 0
 		users = newData["results"]["users"]
 		users.each do |u|
-			username = u["patreon"].match(/\w+\s*$/).to_s
+			username = u["patreon"].match(/user.u=\w+\s*$|\w+\s*$/).to_s.downcase
 			User.find_or_create_by(patreon: username) do |user|
-				user.twitter  	||= u["twitter"][1..-1] if u["twitter"].present?
-				user.youtube  	||= u["youtube"].match(/(channel.*)|(user.*)|\w+\s*$/).to_s if u["youtube"].present?
-				user.facebook 	||= u["facebook"].match(/(pages.*)|\w+\s*$/).to_s if u["facebook"].present?
+				user.twitter  		||= u["twitter"][1..-1] if u["twitter"].present?
+				user.youtube  		||= u["youtube"].match(/(channel.*)|(user.*)|\w+\s*$/).to_s if u["youtube"].present?
+				user.facebook 		||= u["facebook"].match(/(pages.*)|\w+\s*$/).to_s if u["facebook"].present?
+				user.patrons		||= u["patrons"] if u["patrons"].present?
+				user.monthly_pledge	||= u["monthly-pledge"].gsub(/[^\d\.]/, '').to_i if u["monthly-pledge"].present?
 			end
 		end
 	end

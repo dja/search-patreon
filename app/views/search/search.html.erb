@@ -1,32 +1,28 @@
-<%# form_tag search_path, :method => 'get' do %>
-  <p>
-    <%#= text_field_tag :search, params[:search] %>
-    <%#= submit_tag "Search", :name => nil %>
-  </p>
-<%# end %>
+<div class="container">
 
-
-
-
-<%= form_tag search_path, class: "form-inline", method: :get do %>
-<div class="input-group input-group-lg" >
-  <% if params[:query].present? %>
-  <div class="input-group-btn">
-    <%= link_to "clear", search_path, class: "btn btn-default" %>
- </div>
+	<%= form_tag search_path, class: "form-inline", method: :get do %>
+	<div class="input-group" >
+	 <%= text_field_tag :query, params[:query], class: "typeahead form-control", id: "search_search", autocomplete: "off", placeholder: 'Search Patreon' %>
+	 <span class="input-group-btn">
+	   <%= button_tag :submit, class: "btn btn-primary" do %>
+	   	<span class="glyphicon glyphicon-search"></span>
+	   <% end %>
+     </span>
+	</div>
+	  <% if params[:query].present? %>
+		<h3>patreon.com/<%= @user.patreon %></h3>
+		<h5><%= @user.name %></h5>
+		<p>There are <%= @user.patrons %> patrons contributing <%= number_to_currency(@user.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{@user.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{@user.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
+	  <div class="input-group-btn">
+	    <%= link_to "Search Again", search_path, class: "btn btn-default" %>
+	 </div>
+		<% end %>
 	<% end %>
- <%= text_field_tag :query, params[:query], class: "form-control", id: "search_search", autocomplete: "off" %>
- 	<% if @users.present? %>
- 	<% @users.each do |u| %>
-		<%= u.name %>
-		<%= u.twitter %>
-		<%= u.facebook %>
-		<%= u.youtube %>
-		<%= u.patreon %>
+
+	<h3>Top Patreon Users</h3>
+	<% @top_users.each do |u| %>
+		<h5><%= u.name %></h5>
+		<p>There are <%= u.patrons %> patrons contributing <%= number_to_currency(u.monthly_pledge) %> per month. Check them out: <i><%= link_to "", "http://patreon.com/#{u.patreon}", class: 'ion-happy', target: '_blank' %></i> <i><%= link_to "", "http://facebook.com/#{u.facebook}", class: 'ion-social-facebook', target: '_blank' %></i></p>
 	<% end %>
-	<% end %>
- <div class="input-group-btn">
-   <%= submit_tag "Search", class: "btn btn-primary" %>
- </div>
+
 </div>
-<% end %>

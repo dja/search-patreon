@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20140721054044) do
     t.string   "patreon"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "patrons"
-    t.string   "monthly_pledge"
+    t.integer  "patrons"
+    t.integer  "monthly_pledge"
   end
 
 end
