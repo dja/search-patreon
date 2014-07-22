@@ -42,6 +42,5 @@ class HooksController < ApplicationController
 	    # The webhook doesn't require a response but let's make sure
 	    # we don't send anything
 	    render nothing: true
-	  end
 	end
 end
