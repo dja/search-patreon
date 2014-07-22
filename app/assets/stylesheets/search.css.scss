@@ -21,19 +21,28 @@ body {
 	}
 
   .patreon-projects {
-    background-color: #49b0f9;
     margin-top: 2rem;
-    padding: 1rem 2rem;
-    border-radius: 0.3rem;
-    
-    i.ion-chevron-up {
-      float: right;
-      font-size: 2rem;
-      padding: 0.25rem 0.25rem;
-    }
 
-    h4 {
+    .patreon-project {
+      background-color: #49b0f9;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      border-radius: 0.3rem;
       display: inline-block;
+      
+      i.ion-chevron-up {
+        float: right;
+        font-size: 2rem;
+        padding: 0.25rem 0.25rem;
+      }
+
+      a {
+        font-size: 2rem;
+      }
+
+      h4 {
+        display: inline-block;
+      }
     }
   }
 }
