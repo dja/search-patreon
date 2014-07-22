@@ -19,6 +19,23 @@ body {
 	a {
 		font-size: 3rem;
 	}
+
+  .patreon-projects {
+    background-color: #49b0f9;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 0.3rem;
+    
+    i.ion-chevron-up {
+      float: right;
+      font-size: 2rem;
+      padding: 0.25rem 0.25rem;
+    }
+
+    h4 {
+      display: inline-block;
+    }
+  }
 }
 
 .top-user {

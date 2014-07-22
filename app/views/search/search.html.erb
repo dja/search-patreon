@@ -30,6 +30,16 @@
 				<% if @user.facebook_count != nil %><i class="ion-social-facebook"></i><a><%= link_to number_with_delimiter(@user.facebook_count, :delimiter => ','), "http://facebook.com/#{@user.facebook}", target: '_blank' %></a><% end %>
 				<% if @user.twitter_count != nil %><i class="ion-social-twitter"></i><a><%= link_to number_with_delimiter(@user.twitter_count, :delimiter => ','), "http://twitter.com/#{@user.twitter}", target: '_blank' %></a><% end %>
 				<% if @user.youtube_count != nil %><i class="ion-social-youtube"></i><a><%= link_to number_with_delimiter(@user.youtube_count, :delimiter => ','), "http://youtube.com/#{@user.youtube}", target: '_blank' %></a><br/><% end %>
+				<% if @user.projects.any? %>
+				<h3>Projects by <%= @user.patreon %></h3>
+				<div class="patreon-projects">
+					<% @user.projects.each do |p| %>
+						<i class="ion-chevron-up"></i>
+						<h5><%= link_to p.name, 'http://patreon.com/creation?hid='+p.url, style: 'color: #333333;' %></h5>
+						<h5>Created <%= p.created_date %></h5>
+					<% end %>
+				</div>
+				<% end %>
 			</div>
 		</div>
 		<div class="row well" style="margin-top: 10rem;">
